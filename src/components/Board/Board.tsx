@@ -1,7 +1,7 @@
 import Cell from 'Cell/Cell';
 import React, { useState } from 'react';
 import { ICell } from 'types/types';
-import { createBoard } from 'utils/utils';
+import { initBoardData } from 'utils/utils';
 import style from './Board.module.scss';
 import { WIDTH, HEIGHT, MINES_COUNT } from 'utils/constants';
 
@@ -14,7 +14,7 @@ export const Board = ({ gameStatus, setGameStatus }: BoardProps) => {
   const [width, setWidth] = useState(WIDTH);
   const [height, setHeight] = useState(HEIGHT);
   const [mines, setMines] = useState(MINES_COUNT);
-  const [grid, setGrid] = useState<ICell[][]>(() => createBoard(height, width));
+  const [grid, setGrid] = useState<ICell[][]>(() => initBoardData(height, width, mines));
 
   function handleLeftClick(x: number, y: number) {
     console.log(x, y);
