@@ -8,23 +8,27 @@ type CellProps = {
 };
 
 export const Cell = ({ value, onClick }: CellProps) => {
-  function getValue(value: ICell) {
-    if (!value.isOpen) {
-      return value.isFlagged ? "🚩" : null;
+  function getPosition(cell: ICell) {
+    if (!cell.isOpen) {
+      return cell.isFlagged ? '50px -51px' : '0px -51px';
     }
-    if (value.isMine) {
-      return "💣";
+    if (cell.isMine) {
+      return '-102px -51px';
     }
-    if (value.neighbour === 0) {
-      return null;
+    if (cell.isEmpty) {
+      return '-17px -51px';
     }
-    return value.neighbour;
+    return `${-17 * cell.neighbour}px -68px`;
   }
 
   return (
-    <div className={style.cell} onClick={onClick} >
-      {getValue(value)}
-    </div>
+    <div
+      className={style.cell}
+      onClick={onClick}
+      style={{
+        backgroundPosition: `${getPosition(value)}`,
+      }}
+    ></div>
   );
 };
 

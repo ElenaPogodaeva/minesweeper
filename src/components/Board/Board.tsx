@@ -21,7 +21,7 @@ export const Board = ({ gameStatus, setGameStatus }: BoardProps) => {
   }
 
   return (
-    <div className={style.row}>
+    <div className={style.board}>
       {grid.map((row) =>
         row.map((gridCell) => (
           <Cell
