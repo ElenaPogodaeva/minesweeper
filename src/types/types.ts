@@ -5,5 +5,5 @@ export interface ICell {
   neighbour: number;
   isOpen: boolean;
   isEmpty: boolean;
-  isFlagged: boolean;
+  flagIndex: number;
 }

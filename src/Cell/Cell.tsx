@@ -4,13 +4,18 @@ import style from './Cell.module.scss';
 
 type CellProps = {
   value: ICell;
-  onClick: () => void;
+  onLClick: () => void;
+  onRClick: (e: React.MouseEvent<HTMLElement>) => void;
 };
 
-export const Cell = ({ value, onClick }: CellProps) => {
+export const Cell = ({ value, onLClick, onRClick }: CellProps) => {
   function getPosition(cell: ICell) {
     if (!cell.isOpen) {
-      return cell.isFlagged ? '50px -51px' : '0px -51px';
+      if (cell.flagIndex) {
+        return cell.flagIndex === 1 ? '-34px -51px' : '-51px -51px';
+      } else {
+        return '0px -51px';
+      }
     }
     if (cell.isMine) {
       return '-102px -51px';
@@ -24,7 +29,8 @@ export const Cell = ({ value, onClick }: CellProps) => {
   return (
     <div
       className={style.cell}
-      onClick={onClick}
+      onClick={onLClick}
+      onContextMenu={onRClick}
       style={{
         backgroundPosition: `${getPosition(value)}`,
       }}

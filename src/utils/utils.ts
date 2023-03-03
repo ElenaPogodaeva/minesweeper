@@ -13,7 +13,7 @@ export const createBoard = (height: number, width: number) => {
         neighbour: 0,
         isOpen: false,
         isEmpty: false,
-        isFlagged: false,
+        flagIndex: 0,
       };
     }
   }

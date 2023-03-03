@@ -17,7 +17,7 @@ export const Board = ({ gameStatus, setGameStatus }: BoardProps) => {
   const [grid, setGrid] = useState<ICell[][]>(() => initBoardData(height, width, mines));
 
   function handleLeftClick(x: number, y: number) {
-    if (grid[x][y].isOpen || grid[x][y].isFlagged || gameStatus !== 'game') {
+    if (grid[x][y].isOpen || grid[x][y].flagIndex || gameStatus !== 'game') {
       return;
     }
 
@@ -30,7 +30,6 @@ export const Board = ({ gameStatus, setGameStatus }: BoardProps) => {
       return;
     }
 
-    updatedGrid[x][y].isFlagged = false;
     updatedGrid[x][y].isOpen = true;
 
     if (updatedGrid[x][y].isEmpty) {
@@ -48,6 +47,30 @@ export const Board = ({ gameStatus, setGameStatus }: BoardProps) => {
     setGrid(updatedGrid);
   }
 
+  function handleRightClick(e: React.MouseEvent<HTMLElement>, x: number, y: number) {
+    e.preventDefault();
+    console.log(x, y);
+    if (grid[x][y].isOpen || gameStatus !== 'game') {
+      return;
+    }
+
+    let minesCount = mines;
+    const updatedGrid = grid;
+
+    updatedGrid[x][y].flagIndex =
+      updatedGrid[x][y].flagIndex === 2 ? 0 : updatedGrid[x][y].flagIndex + 1;
+
+    if (updatedGrid[x][y].flagIndex === 1) {
+      minesCount -= 1;
+    } else if (updatedGrid[x][y].flagIndex === 2) {
+      minesCount += 1;
+    }
+
+    console.log(updatedGrid[x][y].flagIndex);
+    setMines(minesCount);
+    setGrid(updatedGrid);
+  }
+
   return (
     <div className={style.board}>
       {grid.map((row) =>
@@ -55,7 +78,10 @@ export const Board = ({ gameStatus, setGameStatus }: BoardProps) => {
           <Cell
             key={gridCell.x * row.length + gridCell.y}
             value={gridCell}
-            onClick={() => handleLeftClick(gridCell.x, gridCell.y)}
+            onLClick={() => handleLeftClick(gridCell.x, gridCell.y)}
+            onRClick={(e: React.MouseEvent<HTMLElement>) =>
+              handleRightClick(e, gridCell.x, gridCell.y)
+            }
           />
         ))
       )}
