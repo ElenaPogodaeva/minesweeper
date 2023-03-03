@@ -18,7 +18,7 @@ export const Cell = ({ value, onClick }: CellProps) => {
     if (cell.isEmpty) {
       return '-17px -51px';
     }
-    return `${-17 * cell.neighbour}px -68px`;
+    return `${-17 * (cell.neighbour - 1)}px -68px`;
   }
 
   return (

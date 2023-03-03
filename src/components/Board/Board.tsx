@@ -1,7 +1,7 @@
 import Cell from 'Cell/Cell';
 import React, { useState } from 'react';
 import { ICell } from 'types/types';
-import { initBoardData } from 'utils/utils';
+import { getHidden, initBoardData, showBoard } from 'utils/utils';
 import style from './Board.module.scss';
 import { WIDTH, HEIGHT, MINES_COUNT } from 'utils/constants';
 
@@ -10,14 +10,38 @@ type BoardProps = {
   setGameStatus: (value: string) => void;
 };
 
-export const Board = ({ gameStatus, setGameStatus }: BoardProps) => {
+export const Board = ({ gameStatus, setGameStatus }: BoardProps)=> {
   const [width, setWidth] = useState(WIDTH);
   const [height, setHeight] = useState(HEIGHT);
   const [mines, setMines] = useState(MINES_COUNT);
   const [grid, setGrid] = useState<ICell[][]>(() => initBoardData(height, width, mines));
 
   function handleLeftClick(x: number, y: number) {
-    console.log(x, y);
+    if (grid[x][y].isOpen || grid[x][y].isFlagged || gameStatus !== 'game') {
+      return;
+    }
+
+    const updatedGrid = grid;
+    console.log(updatedGrid);
+    if (updatedGrid[x][y].isMine) {
+      const openedGrid = showBoard(updatedGrid);
+      setGrid(openedGrid);
+      setGameStatus('lose');
+      return;
+    }
+
+    updatedGrid[x][y].isFlagged = false;
+    updatedGrid[x][y].isOpen = true;
+
+    if (getHidden(updatedGrid).length === mines) {
+      const openedGrid = showBoard(updatedGrid);
+      setGrid(openedGrid);
+      setMines(0);
+      setGameStatus('win');
+      return;
+    }
+
+    setGrid(updatedGrid);
   }
 
   return (

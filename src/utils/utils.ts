@@ -119,3 +119,27 @@ export const initBoardData = (height: number, width: number, mines: number) => {
 
   return boardWithNumbers;
 };
+
+export const showBoard = (data: ICell[][]) => {
+  const updatedData = data;
+  updatedData.map((row) =>
+    row.map((cell) => {
+      cell.isOpen = true;
+    })
+  );
+  return updatedData;
+};
+
+export const getHidden = (data: ICell[][]) => {
+  const hiddenCells: ICell[] = [];
+
+  data.map((datarow) => {
+    datarow.map((dataitem) => {
+      if (!dataitem.isOpen) {
+        hiddenCells.push(dataitem);
+      }
+    });
+  });
+
+  return hiddenCells;
+};

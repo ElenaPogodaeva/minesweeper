@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import style from './Game.module.scss';
 
 export const Game = () => {
-  const [gameStatus, setGameStatus] = useState('start');
+  const [gameStatus, setGameStatus] = useState('game');
 
   return (
     <div className={style.game}>
