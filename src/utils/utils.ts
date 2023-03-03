@@ -143,3 +143,22 @@ export const getHidden = (data: ICell[][]) => {
 
   return hiddenCells;
 };
+
+export const showEmptyCells = (
+  height: number,
+  width: number,
+  x: number,
+  y: number,
+  data: ICell[][]
+) => {
+  const neighbours = getNeighbours(x, y, data, height, width);
+  neighbours.map((cell) => {
+    if (!cell.isOpen && (cell.isEmpty || !cell.isMine)) {
+      data[cell.x][cell.y].isOpen = true;
+      if (cell.isEmpty) {
+        showEmptyCells(height, width, cell.x, cell.y, data);
+      }
+    }
+  });
+  return data;
+};
