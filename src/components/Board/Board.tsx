@@ -1,4 +1,4 @@
-import Cell from 'Cell/Cell';
+import Cell from 'components/Cell/Cell';
 import React, { useState } from 'react';
 import { ICell } from 'types/types';
 import { getHidden, initBoardData, showBoard, showEmptyCells } from 'utils/utils';
