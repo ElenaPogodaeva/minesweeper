@@ -1,4 +1,36 @@
 .game {
   max-width: 256px;
   margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: silver;
+  padding: 5px;
+}
+
+.status {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  background: url(../../../public/minesweeper-sprites.png) no-repeat;
+}
+
+.mines {
+  display: flex;
+  align-items: center;
+}
+
+.digit {
+  width: 14px;
+  height: 24px;
+  background: url(../../../public/minesweeper-sprites.png) no-repeat;
+}
+
+.hundred {
+  background-position: -125px 0px;
 }
