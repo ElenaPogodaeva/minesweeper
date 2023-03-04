@@ -10,6 +10,8 @@ export type GameState = {
   mines: number;
   gameState: string;
   isClicked: boolean;
+  time: number;
+  isTimeActive: boolean;
 };
 
 const initialState: GameState = {
@@ -19,6 +21,8 @@ const initialState: GameState = {
   mines: MINES_COUNT,
   gameState: 'game',
   isClicked: false,
+  time: 0,
+  isTimeActive: false,
 };
 
 export const gameSlice = createSlice({
@@ -41,6 +45,8 @@ export const gameSlice = createSlice({
         return;
       }
 
+      state.isTimeActive = true;
+
       if (!state.isClicked) {
         state.grid = initBoardData(state.grid, height, width, mines, x, y);
         state.isClicked = true;
@@ -49,6 +55,7 @@ export const gameSlice = createSlice({
       if (currentCell.isMine) {
         showBoard(state.grid);
         state.gameState = 'lose';
+        state.isTimeActive = false;
         return;
       }
 
@@ -62,6 +69,7 @@ export const gameSlice = createSlice({
         showBoard(state.grid);
         state.gameState = 'win';
         state.mines = 0;
+        state.isTimeActive = false;
         return;
       }
     },
@@ -87,15 +95,20 @@ export const gameSlice = createSlice({
         state.mines += 1;
       }
     },
+    updateTime: (state) => {
+      state.time += 1;
+    },
     resetGame: (state) => {
       state.gameState = 'game';
       state.grid = createBoard(HEIGHT, WIDTH);
       state.mines = MINES_COUNT;
       state.isClicked = false;
+      state.time = 0;
+      state.isTimeActive = false;
     },
   },
 });
 
-export const { leftClick, rightClick, resetGame } = gameSlice.actions;
+export const { leftClick, rightClick, resetGame, updateTime } = gameSlice.actions;
 
 export default gameSlice.reducer;
