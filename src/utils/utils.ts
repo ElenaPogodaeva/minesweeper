@@ -24,7 +24,9 @@ export const generateRandomMines = (
   data: ICell[][],
   height: number,
   width: number,
-  mines: number
+  mines: number,
+  x: number,
+  y: number
 ) => {
   let randomX,
     randomY,
@@ -33,7 +35,7 @@ export const generateRandomMines = (
   while (minesCount < mines) {
     randomX = Math.floor(Math.random() * width);
     randomY = Math.floor(Math.random() * height);
-    if (!data[randomX][randomY].isMine) {
+    if (!data[randomX][randomY].isMine && randomX !== x && randomY !== y) {
       data[randomX][randomY].isMine = true;
       minesCount++;
     }
@@ -112,9 +114,15 @@ export const countNeighboursMines = (data: ICell[][], height: number, width: num
   return updatedData;
 };
 
-export const initBoardData = (height: number, width: number, mines: number) => {
-  const board = createBoard(height, width);
-  const boardWithMines = generateRandomMines(board, height, width, mines);
+export const initBoardData = (
+  board: ICell[][],
+  height: number,
+  width: number,
+  mines: number,
+  x: number,
+  y: number
+) => {
+  const boardWithMines = generateRandomMines(board, height, width, mines, x, y);
   const boardWithNumbers = countNeighboursMines(boardWithMines, height, width);
 
   return boardWithNumbers;

@@ -9,14 +9,16 @@ export type GameState = {
   height: number;
   mines: number;
   gameState: string;
+  isClicked: boolean;
 };
 
 const initialState: GameState = {
-  grid: initBoardData(HEIGHT, WIDTH, MINES_COUNT),
+  grid: createBoard(HEIGHT, WIDTH),
   width: WIDTH,
   height: HEIGHT,
   mines: MINES_COUNT,
   gameState: 'game',
+  isClicked: false,
 };
 
 export const gameSlice = createSlice({
@@ -37,6 +39,11 @@ export const gameSlice = createSlice({
 
       if (currentCell.isOpen || currentCell.flagIndex || gameState !== 'game') {
         return;
+      }
+
+      if (!state.isClicked) {
+        state.grid = initBoardData(state.grid, height, width, mines, x, y);
+        state.isClicked = true;
       }
 
       if (currentCell.isMine) {
@@ -82,8 +89,9 @@ export const gameSlice = createSlice({
     },
     resetGame: (state) => {
       state.gameState = 'game';
-      state.grid = initBoardData(HEIGHT, WIDTH, MINES_COUNT);
+      state.grid = createBoard(HEIGHT, WIDTH);
       state.mines = MINES_COUNT;
+      state.isClicked = false;
     },
   },
 });
