@@ -98,6 +98,10 @@ export const gameSlice = createSlice({
     updateTime: (state) => {
       state.time += 1;
     },
+    setGameState: (state, action: PayloadAction<{ str: string }>) => {
+      const { str } = action.payload;
+      state.gameState = str;
+    },
     resetGame: (state) => {
       state.gameState = 'game';
       state.grid = createBoard(HEIGHT, WIDTH);
@@ -109,6 +113,6 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { leftClick, rightClick, resetGame, updateTime } = gameSlice.actions;
+export const { leftClick, rightClick, resetGame, updateTime, setGameState } = gameSlice.actions;
 
 export default gameSlice.reducer;

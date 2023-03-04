@@ -35,6 +35,9 @@ export const Game = () => {
     if (status === 'lose') {
       return `-${iconWidth * 4 + 1}px -25px`; //`-109px -25px`;
     }
+    if (status === 'scared') {
+      return `-${iconWidth * 2 + 1}px -25px`;
+    }
     return `-1px -25px`;
   }
 
