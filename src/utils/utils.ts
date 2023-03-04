@@ -121,13 +121,11 @@ export const initBoardData = (height: number, width: number, mines: number) => {
 };
 
 export const showBoard = (data: ICell[][]) => {
-  const updatedData = data;
-  updatedData.map((row) =>
+  data.map((row) =>
     row.map((cell) => {
       cell.isOpen = true;
     })
   );
-  return updatedData;
 };
 
 export const getHidden = (data: ICell[][]) => {
@@ -160,5 +158,4 @@ export const showEmptyCells = (
       }
     }
   });
-  return data;
 };
