@@ -16,7 +16,6 @@ export const Board = () => {
     e.preventDefault();
     dispatch(rightClick({ x, y }));
   }
-
   return (
     <div className={style.board}>
       {grid.map((row) =>

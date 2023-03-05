@@ -2,4 +2,6 @@
   display: grid;
   grid-template-columns: repeat(16, 1fr);
   grid-template-rows: repeat(16, 1fr);
+  border: 3px solid; 
+  border-color: #7d7d7d #fff #fff #7d7d7d;
 }

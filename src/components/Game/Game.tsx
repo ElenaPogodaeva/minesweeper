@@ -45,7 +45,7 @@ export const Game = () => {
     const iconWidth = 14;
 
     if (digit === 0) {
-      return `-${iconWidth * 9}px 0px`; //`-125px 0px`;
+      return `-${iconWidth * 9}px 0px`;
     }
     return `-${iconWidth * (digit - 1)}px 0px`;
   }

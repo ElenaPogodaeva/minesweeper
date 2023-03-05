@@ -1,8 +1,10 @@
 .game {
-  max-width: 256px;
+  max-width: 260px;
   margin: 40px auto;
   display: flex;
   flex-direction: column;
+  background: silver;
+  padding: 10px;
 }
 
 .info {
@@ -10,7 +12,10 @@
   align-items: center;
   justify-content: space-between;
   background-color: silver;
-  padding: 5px;
+  padding: 3px 5px;
+  border: 2px solid;
+  border-color: #7d7d7d #fff #fff #7d7d7d;
+  margin-bottom: 7px;
 }
 
 .status {
